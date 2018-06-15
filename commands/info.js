@@ -2,7 +2,7 @@
 const info = require('../package.json'); // now is this bad practice
 module.exports = {
     name: 'info',
-    description: 'says dong',
+    help: 'shows info about this bot',
     execute(message, args) {
         message.channel.send({
             embed: {

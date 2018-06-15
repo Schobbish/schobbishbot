@@ -9,15 +9,14 @@ const Discord = require('discord.js');
 // you should not have recieved a copy of bot-token.json.
 // if you have, you need to contact the repo's owner. thanks!
 const token = require('./bot-token.json');
-const info = require('./package.json');   // bad practice?
 const client = new Discord.Client();
-var commands = {};
 
 // get commands in commands/ and loop through them
+var commands = {};
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (var file of commandFiles) {
     var command = require(`./commands/${file}`);
-    // key: command name; value: command module
+    // command name: command module
     commands[command.name] = command;
 }
 
@@ -28,18 +27,30 @@ client.on('ready', function() {
 
 client.on('message', function(message) {
     words = message.content.split(' ');
+    // check if my command
     if (words[0] == 'schob' || words[0] == 'Schob') {
-        if (commands[words[1]] == undefined) {
-            message.channel.send(`\`${words[1]}\` is not one of my commands. Try \`schob help\` for help.`);
-        } else {
+        // check if command actually exists
+        if (commands[words[1]] != undefined) {
             try {
-                commands[words[1]].execute(message, words);
+                if (words[1] == 'help') {
+                    // help is a special command and needs the commands object
+                    commands.help.execute(message, commands);
+                } else {
+                    commands[words[1]].execute(message, words);
+                }
             } catch (error) {
                 console.error(error);
                 message.channel.send('error');
             }
+        } else {
+            if (words[1] == undefined) {
+                // this is when `schob` and nothing else
+                commands.help.execute(message, commands);
+            } else {
+                message.channel.send(`\`${words[1]}\` is not one of my commands. Try \`schob help\` for help.`);
+            }
         }
     }
 });
-// message.channel.send(`\`${words[1]}\` is not one of my commands. Try \`schob help\` for help.`);
+
 client.login(token.Token);
