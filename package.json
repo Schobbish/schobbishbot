@@ -1,0 +1,22 @@
+{
+  "name": "schobbishbot",
+  "version": "0.1.0",
+  "description": "The SchobbishBot Discord Bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Schobbish/schobbishbot.git"
+  },
+  "author": "Nathaniel Adam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Schobbish/schobbishbot/issues"
+  },
+  "homepage": "https://github.com/Schobbish/schobbishbot#readme",
+  "dependencies": {
+    "discord.js": "^11.3.2"
+  }
+}
