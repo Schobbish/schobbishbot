@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/Schobbish/schobbishbot/issues"
   },
-  "homepage": "https://github.com/Schobbish/schobbishbot#readme",
+  "homepage": "https://github.com/Schobbish/schobbishbot",
   "dependencies": {
     "discord.js": "^11.3.2"
   }
