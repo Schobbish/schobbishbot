@@ -1,4 +1,3 @@
-// jshint esversion: 6
 module.exports = {
     name: 'help',
     description: 'shows this message or gets help on commands',

@@ -18,5 +18,8 @@
   "homepage": "https://github.com/Schobbish/schobbishbot",
   "dependencies": {
     "discord.js": "^11.3.2"
+  },
+  "jshintConfig": {
+      "esversion": 6
   }
 }

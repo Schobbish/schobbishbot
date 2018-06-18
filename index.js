@@ -3,7 +3,6 @@
 // TODO:
 //
 
-// jshint esversion: 6
 const fs = require('fs');
 const Discord = require('discord.js');
 // you should not have recieved a copy of bot-token.json.

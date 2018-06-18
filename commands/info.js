@@ -1,11 +1,10 @@
-// jshint esversion: 6
 const info = require('../package.json'); // now is this bad practice
 module.exports = {
     name: 'info',
     description: 'shows info about this bot',
     usage: '`schob info`',
     arguments: 'No additional arguments.',
-    
+
     execute(message, args) {
         message.channel.send({
             embed: {
