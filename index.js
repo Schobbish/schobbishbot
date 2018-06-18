@@ -27,14 +27,14 @@ client.on('ready', function() {
 
 client.on('message', function(message) {
     words = message.content.split(' ');
-    // check if my command
+    // check for my prefix
     if (words[0] == 'schob' || words[0] == 'Schob') {
         // check if command actually exists
         if (commands[words[1]] != undefined) {
             try {
                 if (words[1] == 'help') {
                     // help is a special command and needs the commands object
-                    commands.help.execute(message, commands);
+                    commands.help.execute(message, words, commands);
                 } else {
                     commands[words[1]].execute(message, words);
                 }
@@ -45,7 +45,7 @@ client.on('message', function(message) {
         } else {
             if (words[1] == undefined) {
                 // this is when `schob` and nothing else
-                commands.help.execute(message, commands);
+                commands.help.execute(message, words, commands);
             } else {
                 message.channel.send(`\`${words[1]}\` is not one of my commands. Try \`schob help\` for help.`);
             }
