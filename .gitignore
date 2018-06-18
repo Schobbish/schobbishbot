@@ -1,3 +1,6 @@
+# ignore on `.git/info/exclude` too so that if this file changes your token still doesn't go to GitHub
+bot-token.json
+
 # Logs
 logs
 *.log
