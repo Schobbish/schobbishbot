@@ -4,7 +4,7 @@ module.exports = {
     usage: '`schob ding`',
     arguments: 'No additional arguments.',
 
-    execute(message, args) {
+    execute(message, words) {
         message.channel.send('dong');
     }
 };

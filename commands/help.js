@@ -40,6 +40,8 @@ module.exports = {
                         value: commands[words[2]].arguments
                     }
                 ];
+                if (commands[words[2]].additionalHelp)
+                    embedFields = embedFields.concat(commands[words[2]].additionalHelp);
             } else {
                 embedTitle = '404 error';
                 embedDescription = `command \`${words[2]}\` not found`;

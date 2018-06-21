@@ -5,7 +5,7 @@ module.exports = {
     usage: '`schob info`',
     arguments: 'No additional arguments.',
 
-    execute(message, args) {
+    execute(message, words) {
         message.channel.send({
             embed: {
                 title: 'Bot info',
