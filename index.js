@@ -11,12 +11,12 @@ const token = require('./bot-token.json');
 const client = new Discord.Client();
 
 // get commands in commands/ and loop through them
-var commands = {};
+var commands = new Map();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (var file of commandFiles) {
     var command = require(`./commands/${file}`);
     // command name: command module
-    commands[command.name] = command;
+    commands.set(command.name, command);
 }
 
 client.on('ready', function() {
@@ -29,13 +29,13 @@ client.on('message', function(message) {
     // check for my prefix
     if (words[0] == 'schob' || words[0] == 'Schob') {
         // check if command actually exists
-        if (commands[words[1]] != undefined) {
+        if (commands.has(words[1])) {
             try {
                 if (words[1] == 'help') {
                     // help is a special command and needs the commands object
-                    commands.help.execute(message, words, commands);
+                    commands.get('help').execute(message, words, commands);
                 } else {
-                    commands[words[1]].execute(message, words);
+                    commands.get(words[1]).execute(message, words);
                 }
             } catch (error) {
                 console.error(error);
@@ -44,7 +44,7 @@ client.on('message', function(message) {
         } else {
             if (words[1] == undefined) {
                 // this is when `schob` and nothing else
-                commands.help.execute(message, words, commands);
+                commands.get('help').execute(message, words, commands);
             } else {
                 message.channel.send(`\`${words[1]}\` is not one of my commands. Try \`schob help\` for help.`);
             }
