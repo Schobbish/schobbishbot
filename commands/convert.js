@@ -14,6 +14,15 @@ module.exports = {
     ],
 
     execute(message, words) {
+        // returns the number of sig figs that n (a string) has
+        function sf(n) {
+            n = n.toString();
+            // removes e and the sign and point
+            n = n.replace(/[-.]|([e+-]+[0-9]+)/g, '');
+            // convert to number then back again to remove leading zeros
+            n = Number(n).toString();
+            return n.length;
+        }
         /* mapping of supported imperial units to an object with two attributes:
          * factor: the number you need to multiply one of this unit by to
          *      convert to its corresponding si base unit
@@ -33,6 +42,7 @@ module.exports = {
         var units = [];
         // the quantity, given by the user
         const quantity = Number(words[2]);
+        const precision = sf(words[2]);
 
         // these three will be combined into imperials
         const imperialUnitsList = 'lb mi ft in'.split(' ');
@@ -57,7 +67,7 @@ module.exports = {
                 throw new Error('`inital unit` is a required argument but was ommitted.');
             if (words[4] == undefined)
                 throw new Error('`final unit` is a required argument but was ommitted.');
-            // check if quantity is a number
+            // check if quantity is a number (toPrecision returns a string)
             if ((!quantity) && quantity !== 0)
                 throw new Error('`quantity` should be a number but it isn\'t.');
             // check unit
@@ -103,8 +113,9 @@ module.exports = {
             var baseQuantity = quantity * units[0].factor;
             // the final quantity
             var finalQuantity = baseQuantity / units[1].factor;
-            finalQuantity = finalQuantity.toPrecision(3);
-            message.channel.send(`${quantity} ${units[0].name} is equal to ${finalQuantity} ${units[1].name}.`);
+            finalQuantity = finalQuantity.toPrecision(precision);
+            const preciseQuantity = quantity.toPrecision(precision);
+            message.channel.send(`${preciseQuantity} ${units[0].name} is equal to ${finalQuantity} ${units[1].name} (${precision} sig figs).`);
         } catch (e) {
             var error = `${e}\n\nSay \`schob help convert\` if you need help.`;
             message.channel.send(error);
